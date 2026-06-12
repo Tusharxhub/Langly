@@ -2,11 +2,10 @@ import IntroScreen from "@/components/auth/IntroScreen";
 import { useAuth } from "@/ctx/AuthContext";
 import { useDeepLinking } from "@/hooks/useDeepLinking";
 import AuthProvider from "@/providers/AuthProvider";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { router, Stack, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
@@ -48,26 +47,22 @@ function RootLayoutNav() {
 
   if (!session) {
     return (
-      <ThemeProvider value={DefaultTheme}>
-        <GestureHandlerRootView style={styles.container}>
-          <IntroScreen />
-          <Toaster />
-        </GestureHandlerRootView>
-      </ThemeProvider>
+      <GestureHandlerRootView style={styles.container}>
+        <IntroScreen />
+        <Toaster />
+      </GestureHandlerRootView>
     );
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <GestureHandlerRootView style={styles.container}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="onboarding" />
-        </Stack>
-        <Toaster />
-      </GestureHandlerRootView>
+    <GestureHandlerRootView style={styles.container}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="onboarding" />
+      </Stack>
+      <Toaster />
       <StatusBar style="auto" />
-    </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 
